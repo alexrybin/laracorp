@@ -11,10 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/','IndexController',[
+    'only' =>['index'],
+    'names' => [
+        'index'=>'home'
+    ]
+]);
 
-Auth::routes();
+Route::resource('portfolios','PortfolioController',[
 
-Route::get('/home', 'HomeController@index')->name('home');
+    'parameters' => [
+
+        'portfolios' => 'alias'
+
+    ]
+
+]);
