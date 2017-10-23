@@ -14,7 +14,9 @@ class SiteController extends Controller
     protected $s_rep; // Слайдер репозиторий
     protected $a_rep; // Артиклес репозиторий
     protected $m_rep; // Менюс репозиторий
-
+    protected $keywords;
+    protected $meta_desc;
+    protected $title;
 
     protected $template;  // Имя шаблона для отображения информации на конкретной странице
 
@@ -24,7 +26,7 @@ class SiteController extends Controller
     protected $contentLeftBar = FALSE;
 
 
-    protected $bar = FALSE; // Есть ли сайтбар
+    protected $bar = 'no'; // Есть ли сайтбар
 
 
     public function __construct(MenusRepository $m_rep) {
@@ -37,6 +39,22 @@ class SiteController extends Controller
 
         $navigation = view(env('THEME').'.navigation')->with('menu',$menu)->render();
         $this->vars = array_add($this->vars,'navigation',$navigation);
+
+        if($this->contentRightBar) {
+            $rightBar = view(env('THEME').'.rightBar')->with('content_rightBar',$this->contentRightBar)->render();
+            $this->vars = array_add($this->vars,'rightBar',$rightBar);
+
+        }
+        $this->vars = array_add($this->vars,'bar',$this->bar);
+
+        $this->vars = array_add($this->vars,'keywords',$this->keywords);
+        $this->vars = array_add($this->vars,'meta_desc',$this->meta_desc);
+        $this->vars = array_add($this->vars,'title',$this->title);
+
+
+        $footer = view(env('THEME').'.footer')->render();
+        $this->vars = array_add($this->vars,'footer',$footer);
+
 
         return view($this->template)->with($this->vars);
 
