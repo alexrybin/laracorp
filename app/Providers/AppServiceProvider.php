@@ -5,6 +5,7 @@ namespace Corp\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
+use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,15 @@ class AppServiceProvider extends ServiceProvider
 
             return "<?php $name = $val ?>";
         });
+
+
+        DB::listen(function($query) {
+
+            //echo '<h1>'.$query->sql.'</h1>';
+
+        });
+
+
     }
 
     /**
