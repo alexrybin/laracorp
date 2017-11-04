@@ -11,8 +11,7 @@ use Config;
 class IndexController extends SiteController
 {
 
-    public function __construct(SlidersRepository $s_rep, PortfoliosRepository $p_rep, ArticlesRepository $a_rep)
-    {
+    public function __construct(SlidersRepository $s_rep, PortfoliosRepository $p_rep, ArticlesRepository $a_rep) {
 
         parent::__construct(new \Corp\Repositories\MenusRepository(new \Corp\Menu));
 
@@ -21,8 +20,11 @@ class IndexController extends SiteController
         $this->a_rep = $a_rep;
 
         $this->bar = 'right';
-        $this->template = env('THEME') . '.index';
+
+        $this->template = env('THEME').'.index';
+
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,11 +33,12 @@ class IndexController extends SiteController
     public function index()
     {
         //
+
         $portfolios = $this->getPortfolio();
+
 
         $content = view(env('THEME').'.content')->with('portfolios',$portfolios)->render();
         $this->vars = array_add($this->vars,'content', $content);
-
 
         $sliderItems = $this->getSliders();
 
@@ -49,11 +52,18 @@ class IndexController extends SiteController
 
         $articles = $this->getArticles();
 
-
+        // dd($articles);
 
         $this->contentRightBar = view(env('THEME').'.indexBar')->with('articles',$articles)->render();
 
+
         return $this->renderOutput();
+    }
+
+    protected function getArticles() {
+        $articles = $this->a_rep->get(['title','created_at','img','alias'],Config::get('settings.home_articles_count'));
+
+        return $articles;
     }
 
     protected function getPortfolio() {
@@ -63,15 +73,6 @@ class IndexController extends SiteController
         return $portfolio;
 
     }
-
-    protected function getArticles() {
-
-        $articles = $this->a_rep->get(['title','created_at','img','alias'],Config::get('settings.home_articles_count'));
-
-        return $articles;
-    }
-
-
 
     public function getSliders() {
         $sliders = $this->s_rep->get();
@@ -85,14 +86,11 @@ class IndexController extends SiteController
             $item->img = Config::get('settings.slider_path').'/'.$item->img;
             return $item;
 
-        }
-        );
+        });
 
 
         return $sliders;
     }
-
-
 
     /**
      * Show the form for creating a new resource.
