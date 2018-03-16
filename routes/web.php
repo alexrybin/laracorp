@@ -83,7 +83,20 @@ Route::resource('/admin/articles', 'Admin\ArticlesController',
         'destroy' => 'admin.articles.destroy',
     ]]);
 
+Route::resource('/admin/permissions', 'Admin\PermissionsController',
+['names' => [
+    'index' => 'admin.permissions.index'
+
+]]);
+
+
+
+
+
+
 
 //Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
+
+

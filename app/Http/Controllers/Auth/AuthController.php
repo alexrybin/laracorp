@@ -51,14 +51,15 @@ public function __construct()
 
 public function showLoginForm()
 {
-    $view = property_exists($this, 'loginView')
-        ? $this->loginView : '';
+    //$view = property_exists($this, 'loginView')
+        //? $this->loginView : '';
 
-    if (view()->exists($view)) {
-        return view($view)->with('title', 'Вход на сайт');
-    }
+    //if (view()->exists($view)) {
+        //return view($view)->with('title', 'Вход на сайт');
+        return view($this->loginView)->with('title', 'Вход на сайт');
+    //}
 
-    abort(404);
+    //abort(404);
 
 
 

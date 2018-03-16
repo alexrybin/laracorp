@@ -36,6 +36,7 @@ class ArticlesController extends SiteController
         $this->meta_desc = 'String';
 
         $articles = $this->getArticles($cat_alias);
+        //$articles = $this->a_rep->getArticles($cat_alias);
 
         $content = view(env('THEME').'.articles_content')->with('articles',$articles)->render();
         $this->vars = array_add($this->vars,'content',$content);
@@ -72,7 +73,8 @@ class ArticlesController extends SiteController
 
         if($alias) {
             // WHERE `alias` = $alias
-            $id = Category::select('id')->where('alias',$alias)->first()->id;
+            $id = Category::select('id')->where('alias',$alias)->value('id');//->first()->id;
+
             //WHERE `category_id` = $id
             $where = ['category_id',$id];
         }
@@ -96,10 +98,15 @@ class ArticlesController extends SiteController
         }
 
         //dd($article->comments->groupBy('parent_id'));
+if(isset($article->id)){
+    $this->title = $article->title;
+    $this->keywords = $article->keywords;
+    $this->meta_desc = $article->meta_desc;
 
-        $this->title = $article->title;
-        $this->keywords = $article->keywords;
-        $this->meta_desc = $article->meta_desc;
+
+
+}
+
 
         $content = view(env('THEME').'.article_content')->with('article',$article)->render();
         $this->vars = array_add($this->vars,'content',$content);

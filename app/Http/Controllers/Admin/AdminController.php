@@ -42,6 +42,7 @@ class AdminController extends \Corp\Http\Controllers\Controller
         $navigation = view(env('THEME').'.admin.navigation')->with('menu',$menu)->render();
         $this->vars = array_add($this->vars,'navigation',$navigation);
 
+
         if($this->content) {
             $this->vars = array_add($this->vars,'content',$this->content);
         }
@@ -64,7 +65,7 @@ class AdminController extends \Corp\Http\Controllers\Controller
             $menu->add('Портфолио',  array('route'  => 'admin.articles.index'));
             $menu->add('Меню',  array('route'  => 'admin.articles.index'));
             $menu->add('Пользователи',  array('route'  => 'admin.articles.index'));
-            $menu->add('Привилегии',  array('route'  => 'admin.articles.index'));
+            $menu->add('Привилегии',  array('route'  => 'admin.permissions.index'));
 
 
 
