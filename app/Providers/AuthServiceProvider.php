@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Corp\Article;
 use Corp\Policies\ArticlePolicy;
+use Corp\Permission;
+use Corp\Policies\PermissionPolicy;
+use Corp\Policies\MenusPolicy;
+use Corp\Menu;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +19,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Article::class => ArticlePolicy::class
+        Article::class => ArticlePolicy::class,
+        Permission::class => PermissionPolicy::class,
+        Menu::class => MenusPolicy::class,
     ];
 
     /**
@@ -39,7 +45,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('EDIT_USERS', FALSE);
         });
 
-
+        Gate::define('VIEW_ADMIN_MENU', function ($user) {
+            return $user->canDo('VIEW_ADMIN_MENU', FALSE);
+        });
 
 
 

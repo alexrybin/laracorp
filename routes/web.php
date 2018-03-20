@@ -85,9 +85,23 @@ Route::resource('/admin/articles', 'Admin\ArticlesController',
 
 Route::resource('/admin/permissions', 'Admin\PermissionsController',
 ['names' => [
-    'index' => 'admin.permissions.index'
+    'index' => 'admin.permissions.index',
+    'store' => 'admin.permissions.store',
+]]);
+
+Route::resource('/admin/menus', 'Admin\MenusController',
+['names' => [
+    'index' => 'admin.menus.index',
+    'create' => 'admin.menus.create',
+    'store' => 'admin.menus.store',
+    'edit' => 'admin.menus.edit',
+    'destroy' => 'admin.menus.destroy',
 
 ]]);
+
+
+
+
 
 
 

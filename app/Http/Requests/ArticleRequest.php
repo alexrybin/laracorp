@@ -26,13 +26,13 @@ class ArticleRequest extends FormRequest
 
 
         $validator->sometimes('alias','unique:articles|max:255', function($input) {
-            if($this->route()->hasParameter('articles')) {
-                $model = $this->route()->parameter('articles');
+            if($this->route()->hasParameter('article')) {
+                $model = $this->route()->parameter('article');
 
 
                 return ($model->alias !== $input->alias)  && !empty($input->alias);
             }
-            //return !empty($input->alias);
+            return !empty($input->alias);
 
         });
 
